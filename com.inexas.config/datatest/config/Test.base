@@ -1,0 +1,15 @@
+Test {
+	a: "A";
+	b: "to be overridden";
+	c: 1;
+	d: null;
+	e: true;
+	
+	Wild {
+		card: "wildcard";
+		Exclude {
+			me: "Exclude me";
+		}
+	}
+	
+}

@@ -1,0 +1,94 @@
+/**
+ * build.gradle
+ */
+
+def PROJECT_NAME = 'Config'
+def PROJECT_NAME_LOWER = 'config'
+def PROJECT_VENDOR = 'Inexas'
+def PROJECT_GROUP = 'inexas'
+def PROJECT_VERSION = '0.1.0'
+def PROJECT_DESCRIPTION = 'Configuration setting management tool'
+
+// Compiler configuration
+def PROJECT_JAVA_VERSION = '1.8'
+
+apply plugin: 'java'
+// Gradle info, see .../build/reports/project/ dependencies, properties, tasks
+apply plugin: 'project-report'	// For lots of reports
+apply plugin: 'eclipse'			// To be able to create an Eclipse project
+apply plugin:'application'		// To add a run task
+
+defaultTasks 'compileTestJava'	
+
+repositories {
+	flatDir { dirs LocalRepository }
+	mavenLocal()
+	mavenCentral()
+}
+
+group = PROJECT_GROUP
+version = PROJECT_VERSION
+sourceCompatibility = PROJECT_JAVA_VERSION
+description = PROJECT_DESCRIPTION
+
+archivesBaseName = PROJECT_NAME_LOWER
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src'
+		}
+		resources {
+			srcDir 'resources'
+		}
+	}
+	test {
+		java {
+			srcDir 'srctest'
+		}
+		resources {
+			srcDir 'resourcestest'
+		}
+	}
+}
+
+// Application task...
+mainClassName = "hello.HelloWorld"   
+//applicationDefaultJvmArgs = ["-Dgreeting.language=en"]
+
+test {
+	enableAssertions true
+}
+
+//war {
+//	webAppDirName = 'WebContent'
+//}	
+
+jar {
+	manifest {
+		attributes(
+			// todo "Name": "PROJECT_DESCRIPTION",
+			"Specification-Title": PROJECT_DESCRIPTION,
+			"Specification-Version": PROJECT_VERSION,
+			"Specification-Vendor": PROJECT_VENDOR,
+			"Implementation-Title": PROJECT_DESCRIPTION,
+			"Implementation-Version": PROJECT_VERSION,
+			"Implementation-Vendor": PROJECT_VENDOR)
+	}
+}
+
+dependencies {
+	testCompile 'junit:junit:4.11'
+	testCompile 'junit:junit:4.11'
+	
+	compile 'com.inexas:oak:0.1.3'
+	compile 'com.inexas:tad:0.1.2'
+}
+
+uploadArchives {
+	repositories {
+	   flatDir {
+		   dirs 'repos'
+	   }
+	}
+}

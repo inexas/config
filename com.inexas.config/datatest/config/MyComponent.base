@@ -1,0 +1,9 @@
+MyComponent {
+	name: "MyComponent Example";
+	version: 0;
+ 
+	Database {
+		userid: "SA";
+		password: "password";
+	}
+}
